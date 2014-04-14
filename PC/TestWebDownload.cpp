@@ -11,10 +11,16 @@ using namespace hh_pc;
 
 int main(int argc, char *argv[])
 {
-    string url("www.hao123.com");
+    string url("http://www.hao123.com");
     DownloadUrl du;
-    SaveWebPage swp("/home/hhq/workspace/personal/");
+    SaveWebPage swp("/home/hhq/workspace/");
+    
     string content = du.download(url);
+    if (!swp.saveToFile(url, content))
+    {
+        cout << "content write fail" << endl;
+    }
+    
     //cout << "content size : "<< data;
     
     UrlParse parse(content);

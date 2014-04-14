@@ -94,6 +94,7 @@ bool SaveWebPage::fileIsExists(string &filepath) {
 
 bool SaveWebPage::saveToFile(string &url, string &content) {
     string filepath = getPath(url);
+    cout << "file path : " << filepath << endl;
     
     out.open(filepath.c_str());
     if (out.fail())
