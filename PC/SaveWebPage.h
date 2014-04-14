@@ -8,6 +8,7 @@ class SaveWebPage {
 private:
     
     std::string path;
+    std::string urlfile;
     std::ofstream out;
     std::set<std::string> urlList;
 public:
@@ -17,7 +18,7 @@ public:
     bool saveToFile(std::string &url, std::string &content);
     bool fileIsExists(std::string &filePath) ;
     std::string getPath(std::string &url);
-    bool saveWritedUrls();
+    void saveWritedUrls();
     std::vector<std::string> split(std::string &str, std::string &pattern);
 };
 #endif

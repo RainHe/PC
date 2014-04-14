@@ -12,6 +12,7 @@ using namespace std;
 string SaveWebPage::HTTP_HEAD = "http://";
 SaveWebPage::SaveWebPage(string path){
     this->path = path;
+    this->urlfile = path + "/urls.list";
 }
 bool SaveWebPage::checkPathStatus() {
     struct stat status;
@@ -100,20 +101,28 @@ bool SaveWebPage::saveToFile(string &url, string &content) {
         cout << "open file fail" << endl;
         return false;
     }
-    ostream o = (out << content);
-    if (o.fail())
-    {
-        cout << "write content fail" << endl;
-        return false;
-    }
+    out << content;
     out.flush();
     out.close();
-    
-    
+    urlList.insert(url);
+    saveWritedUrls();
+    return true;
 }
     
-bool SaveWebPage::saveWritedUrls() {
-
+void SaveWebPage::saveWritedUrls() {
+    
+    if (urlList.size() >= 50)
+    {
+        ofstream o(urlfile.c_str(), ios::out | ios::app);
+        set<string>::iterator it = urlList.begin();
+        while(it != urlList.end()) {
+            o << *it << endl;
+            it++;
+        }
+        o.flush();
+        o.close();
+        
+    }
 }
 
 
