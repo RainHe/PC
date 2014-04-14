@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include "SaveWebPage.h"
 using namespace std;
 using namespace hh_pc;
 
@@ -12,6 +13,7 @@ int main(int argc, char *argv[])
 {
     string url("www.hao123.com");
     DownloadUrl du;
+    SaveWebPage swp("/home/hhq/workspace/personal/");
     string content = du.download(url);
     //cout << "content size : "<< data;
     
@@ -22,7 +24,6 @@ int main(int argc, char *argv[])
     {
         cout << *i << endl;
     }
-    //cout << "----------------------------------------------------------------" << endl;
-    //cout << content << endl;
+    
     return 0;
 }
