@@ -9,7 +9,7 @@
 using namespace std;
 
 UrlParse::UrlParse(string pageCode) {
-    this->pageCode = pageCode;
+    
     
     replaceList.insert(pair<string,string>("&amp;","&"));
     this->regexStr = "http://((((((([a-z]|[A-Z])|[0-9])|(([a-z]|[A-Z])|[0-9])((([a-z]|[A-Z])|[0-9])|-)*(([a-z]|[A-Z])|[0-9]))\\.)*(([a-z]|[A-Z])|([a-z]|[A-Z])((([a-z]|[A-Z])|[0-9])|-)*(([a-z]|[A-Z])|[0-9])*)*)|([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.([0-9]+))(:([0-9]+)){0,1})(/((((([a-z]|[A-Z])|[0-9]|(\\$|-|_|\\.|\\+)|(!|\\*|\\(|\\)|,))|(%([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)))|;|:|@|&|=)*)(/((((([a-z]|[A-Z])|[0-9]|(\\$|-|_|\\.|\\+)|(!|\\*|\\(|\\)|,))|(%([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)))|;|:|@|&|=)*))*(\\?((((([a-z]|[A-Z])|[0-9]|(\\$|-|_|\\.|\\+)|(!|\\*|\\(|\\)|,))|(%([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)([0-9]|A|B|C|D|E|F|a|b|c|d|e|f)))|;|:|@|&|=|/)*)){0,1}){0,1}";
@@ -33,7 +33,8 @@ void UrlParse::getUrls() {
         //urlList.push_back(*its++);
     
 }
-set<string> &UrlParse::getUrlList() {
+set<string> &UrlParse::getUrlList(string pageCode) {
+    this->pageCode = pageCode;
     this->getUrls();
     return urlList;
 }

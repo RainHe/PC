@@ -11,12 +11,12 @@ private:
     std::set<std::string> urlList;
     std::map<std::string, std::string> replaceList;
 public:
-    UrlParse(std::string pageCode);
+    UrlParse();
     void getUrls();
     std::string &getRegexHttp();
     void processUrl(std::string &url);
     bool isFile(const std::string & url) const;
-    std::set<std::string> &getUrlList() ;
+    std::set<std::string> &getUrlList(std::string pageCode) ;
     ~UrlParse();
 };
 #endif
