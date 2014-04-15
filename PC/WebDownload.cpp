@@ -13,22 +13,18 @@ DownloadUrl::DownloadUrl(){
 
 size_t DownloadUrl::getUrlResponse(char *ptr, size_t size, size_t nmemb, string *stream) {
     unsigned long  content_len = size * nmemb;
-    cout << "xxx" << endl;
     if (stream == NULL || ptr == NULL)
     {
         cout << "not data be receive" << endl;
         return 0;
     }
-    cout << "ttt" << endl;
-    cout << ptr << endl;
     stream->append(ptr, content_len);
-    cout << "bbb" << endl;
-    //cout << str << endl;
+    
     return content_len;
 }
 
 
-string &DownloadUrl::download(string &url){
+string &DownloadUrl::download(const string &url){
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &DownloadUrl::getUrlResponse);

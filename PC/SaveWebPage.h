@@ -15,9 +15,9 @@ public:
     static std::string HTTP_HEAD;
     SaveWebPage(std::string path);
     bool checkPathStatus();
-    bool saveToFile(std::string &url, std::string &content);
+    bool saveToFile(const std::string &url, const std::string &content);
     bool fileIsExists(std::string &filePath) ;
-    std::string getPath(std::string &url);
+    std::string getPath(const std::string &url);
     void saveWritedUrls();
     std::vector<std::string> split(std::string &str, std::string &pattern);
 };

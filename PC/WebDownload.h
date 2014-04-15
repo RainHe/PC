@@ -15,7 +15,7 @@ namespace hh_pc{
     public:
         
         DownloadUrl();
-        std::string &download(std::string &url);
+        std::string &download(const std::string &url);
         static size_t getUrlResponse(char *ptr, size_t size, size_t nmemb, std::string *stream);
         
         ~DownloadUrl();

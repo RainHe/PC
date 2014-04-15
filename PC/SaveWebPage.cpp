@@ -20,7 +20,9 @@ bool SaveWebPage::checkPathStatus() {
     if (flag == -1)
     {
         cout << "stat check fail" << endl;
-        return false;
+        string command = "mkdir -p " + path;
+        if (system(command.c_str()) <= 0)
+            return false;
     }
     if (S_ISDIR(status.st_mode) == -1)
     {
@@ -58,18 +60,46 @@ vector<string> SaveWebPage::split(string &str, string &pattern) {
     }
     return result;
 }
-string SaveWebPage::getPath(string &url){
+
+string SaveWebPage::getPath(const string &url){
     int flagSize = SaveWebPage::HTTP_HEAD.size();
     string host = url.substr(7);
     string pattern = "/";
     vector<string> items = split(host, pattern);
     string filePath("");
-    filePath.append("/");
     filePath.append(path);
-    for(int i = 0; i<items.size(); i++) {
+    filePath.append("/");
+    filePath.append(items[0]);
+    int i;
+    if (items.size() <= 1)
+        i = 0;
+    else
+        i = 1;
+    for( ; i<items.size()-1; i++) {
         filePath.append("/");
         filePath.append(items[i]);
     }
+    cout << "file path : " << filePath << endl;
+    struct stat status;
+    int flag = stat(filePath.c_str(), &status);
+    if (flag == -1){
+        cout << "file stat get fail filepath" << endl;
+        string command = "mkdir -p " + filePath;
+        if (system(command.c_str()) < 0)
+            return "/tmp/web.html";
+        cout << "create filepath is success" << endl;
+    }
+        
+    if(S_ISDIR(status.st_mode) == -1)
+    {
+        cout << "file is not exists" << endl;
+        string command = "mkdir -p " + filePath;
+        if (system(command.c_str()) < 0)
+            return "/tmp/web.html";
+    }
+    filePath.append("/");
+    filePath.append(items[items.size()-1]);
+    cout << "final file path : " << filePath << endl;
     return filePath;
 }
 
@@ -92,14 +122,14 @@ bool SaveWebPage::fileIsExists(string &filepath) {
     return true;
 }
 
-bool SaveWebPage::saveToFile(string &url, string &content) {
+bool SaveWebPage::saveToFile(const string &url, const string &content) {
     string filepath = getPath(url);
     cout << "file path : " << filepath << endl;
     
     out.open(filepath.c_str());
     if (out.fail())
     {
-        cout << "open file fail" << endl;
+        cout << "open file fail : " << filepath << endl;
         return false;
     }
     out << content;
@@ -125,10 +155,5 @@ void SaveWebPage::saveWritedUrls() {
         
     }
 }
-
-
-
-
-
 
 
