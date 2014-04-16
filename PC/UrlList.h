@@ -6,24 +6,17 @@
 #include <set>
 #include <list>
 #include <map>
-typedef std::list<std::string>::iterator UrlIter;
+
 class UrlList {
 private:
-    std::list<std::string> urls;
-    std::set<UrlIterator> urlIters;
+    std::set<std::string> urls;
+
 public:
     UrlList();
-    void pushUrls(std::set<std::string> &urls);
-    std::string getUrl();
-    
+    void pushUrls(const std::set<std::string> &urls);
+    void pushFun(const std::string &url);
+     std::string getUrl();
+    ~UrlList();
 };
-class UrlIterator {
-    
-private:
-    UrlIter iter;
-public:
-    UrlIterator(UrlIter &iter);
-    UrlIter getIterator();
-    bool operator<(UrlIter &aIter);
-};
+
 #endif
