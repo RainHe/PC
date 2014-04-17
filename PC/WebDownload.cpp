@@ -7,8 +7,7 @@ using namespace hh_pc;
 DownloadUrl::DownloadUrl(){
     curl_global_init(CURL_GLOBAL_DEFAULT);
     curl = curl_easy_init();
-    str = string("");
-    
+        
 }
 
 size_t DownloadUrl::getUrlResponse(char *ptr, size_t size, size_t nmemb, string *stream) {
@@ -23,8 +22,8 @@ size_t DownloadUrl::getUrlResponse(char *ptr, size_t size, size_t nmemb, string 
     return content_len;
 }
 
-
-string &DownloadUrl::download(const string &url){
+string DownloadUrl::download(const string &url){
+    string str="";
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &DownloadUrl::getUrlResponse);
@@ -36,7 +35,8 @@ string &DownloadUrl::download(const string &url){
     {
         cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << endl;
     }
-    //char *data = new char[10240];
+    //char *da new char[10240];
+    
     return str;
 }
 DownloadUrl::~DownloadUrl() {

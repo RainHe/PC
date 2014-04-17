@@ -11,6 +11,7 @@ UrlList::UrlList(){
 
 void UrlList::pushUrls(const set<string> &urls) {
     this->urls.insert(urls.begin(), urls.end());
+    
     cout << "urls size : " << this->urls.size() << endl;
 }
 string UrlList::getUrl() {
@@ -19,6 +20,11 @@ string UrlList::getUrl() {
     set<string>::iterator iter = urls.begin();
     string url = *iter;
     this->urls.erase(iter);
+    map<string,int>::iterator iter1 = flag.find(url);
+    if (iter1 != flag.end())
+        return "null";
+    flag[url]=1;
+    cout << "get url : " << url << endl;
     return url;
 }
 

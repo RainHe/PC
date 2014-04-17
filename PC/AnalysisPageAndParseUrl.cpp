@@ -8,7 +8,7 @@
 #include <set>
 using namespace std;
 
-UrlParse::UrlParse(string pageCode) {
+UrlParse::UrlParse() {
     
     
     replaceList.insert(pair<string,string>("&amp;","&"));
@@ -25,6 +25,8 @@ void UrlParse::getUrls() {
     while(its != end) {
         //cout << *its << endl;
         string url = its->str();
+        if (filter(url) == false)
+            return;
         processUrl(url);
         if (!isFile(url))
             urlList.insert(url);
@@ -32,6 +34,18 @@ void UrlParse::getUrls() {
     }
         //urlList.push_back(*its++);
     
+}
+bool UrlParse::filter(const string &url) const {
+    size_t pos_n = url.find("http://");
+    size_t pos_s = url.find("https://");
+    if (pos_n == string::npos) {
+        if (pos_s == string::npos)
+            return false;
+    }
+    
+    if(url.size() <= 11)
+        return false;
+    return true;
 }
 set<string> &UrlParse::getUrlList(string pageCode) {
     this->pageCode = pageCode;

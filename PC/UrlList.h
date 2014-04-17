@@ -10,12 +10,12 @@
 class UrlList {
 private:
     std::set<std::string> urls;
-
+    std::map<std::string,int> flag;
 public:
     UrlList();
     void pushUrls(const std::set<std::string> &urls);
     void pushFun(const std::string &url);
-     std::string getUrl();
+    std::string getUrl();
     ~UrlList();
 };
 

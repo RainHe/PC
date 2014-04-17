@@ -16,6 +16,7 @@ public:
     std::string &getRegexHttp();
     void processUrl(std::string &url);
     bool isFile(const std::string & url) const;
+    bool filter(const std::string & url) const;
     std::set<std::string> &getUrlList(std::string pageCode) ;
     ~UrlParse();
 };

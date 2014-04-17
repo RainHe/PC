@@ -7,6 +7,7 @@
 #include <set>
 #include "SaveWebPage.h"
 #include <queue>
+#include "UrlList.h"
 using namespace std;
 using namespace hh_pc;
 
@@ -21,21 +22,22 @@ int main(int argc, char *argv[])
     //cout << "content size : "<< data;
     UrlParse parse;
     set<string> urlList = parse.getUrlList(content);
-    set<string>::iterator i;
-    queue<string> que;
-    
-    for ( i = urlList.begin(); i != urlList.end() ; i++)
-    {
-        cout << *i << endl;
-        que.push(*i);
-        //content = du.download(*i);
-        //swp.saveToFile(*i, content);
-    }
-    while (que.size() != 0) {
-        url = que.pop();
+    UrlList all;
+    all.pushUrls(urlList);
+            
+    while (true) {
+        url=all.getUrl();
+        if (url == "")
+            break;
+        if (url == "null")
+            continue;
+        
         content = du.download(url);
         swp.saveToFile(url, content);
-        
+        urlList = parse.getUrlList(content);
+        cout << "urllist : " << urlList.size() << endl;
+        all.pushUrls(urlList);
+        cout << 1 << " is end new list size : " << urlList.size() << endl;
     }
     
     return 0;
